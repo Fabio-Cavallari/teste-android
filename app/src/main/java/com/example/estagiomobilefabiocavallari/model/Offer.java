@@ -1,6 +1,7 @@
 package com.example.estagiomobilefabiocavallari.model;
 
 public class Offer {
+
     private final String title;
     private final String image;
     private final float value;
