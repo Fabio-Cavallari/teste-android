@@ -4,15 +4,15 @@ public class Offer {
 
     private final String title;
     private final String image;
-    private final float value;
+    private final String value;
 
-    public Offer(String title, String image, float value) {
+    public Offer(String title, String image, String value) {
         this.title = title;
         this.image = image;
         this.value = value;
     }
 
-    public float getValue() {
+    public String getValue() {
         return value;
     }
 

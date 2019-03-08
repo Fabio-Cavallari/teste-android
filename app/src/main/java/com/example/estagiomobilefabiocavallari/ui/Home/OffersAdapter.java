@@ -7,10 +7,12 @@ import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.estagiomobilefabiocavallari.R;
 import com.example.estagiomobilefabiocavallari.model.Offer;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -37,9 +39,10 @@ public class OffersAdapter extends RecyclerView.Adapter {
         Offer offer = offers.get(i);
 
         holder.title.setText(offer.getTitle());
-        holder.value.setText(Float.toString(offer.getValue()));
-        holder.img.setText(offer.getImage());
-
+        holder.value.setText("R$" + offer.getValue());
+        Picasso.get()
+                .load(offer.getImage())
+                .into(holder.img);
     }
 
     @Override
@@ -56,12 +59,12 @@ public class OffersAdapter extends RecyclerView.Adapter {
 class OffersViewHolder extends ViewHolder {
     final TextView title;
     final TextView value;
-    final TextView img;
+    final ImageView img;
 
     public OffersViewHolder(@NonNull View itemView) {
         super(itemView);
         title = itemView.findViewById(R.id.title);
-        value = itemView.findViewById(R.id.img);
-        img = itemView.findViewById(R.id.value);
+        value = itemView.findViewById(R.id.value);
+        img = itemView.findViewById(R.id.img);
     }
 }
