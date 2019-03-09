@@ -83,22 +83,4 @@ public class OffersAdapter extends RecyclerView.Adapter {
         }
 }
 
-//class OffersViewHolder extends ViewHolder {
-//    final TextView title;
-//    final TextView value;
-//    final ImageView img;
-//
-//    public OffersViewHolder(@NonNull View itemView) {
-//        super(itemView);
-//        title = itemView.findViewById(R.id.title);
-//        value = itemView.findViewById(R.id.value);
-//        img = itemView.findViewById(R.id.img);
-//
-//        itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
-//    }
 }

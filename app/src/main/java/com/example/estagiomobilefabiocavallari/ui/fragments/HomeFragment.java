@@ -57,10 +57,13 @@ public class HomeFragment extends Fragment {
         offersList = new ArrayList<Offer>();
 
         RecyclerView offersRecyler = view.findViewById(R.id.offers_list);
+
         offersAdapter = new OffersAdapter(offersList, getContext());
         offersRecyler.setAdapter(offersAdapter);
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         offersRecyler.setLayoutManager(layoutManager);
+
         offersAdapter.setOnOfferClickListener(new OnOfferClickListener() {
             @Override
             public void onOfferClick(Offer offer) {
