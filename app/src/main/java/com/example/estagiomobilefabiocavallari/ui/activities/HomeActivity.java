@@ -3,6 +3,8 @@ package com.example.estagiomobilefabiocavallari.ui.activities;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import com.example.estagiomobilefabiocavallari.R;
 import com.example.estagiomobilefabiocavallari.model.Offer;
@@ -34,7 +36,12 @@ public class HomeActivity extends AppCompatActivity {
                     .add(R.id.fragment_container, firstFragment).commit();
         }
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
     }
+
 
     public void NavigateToDetail(Offer offer){
         DetailFragment detailFragment = new DetailFragment();
@@ -46,7 +53,15 @@ public class HomeActivity extends AppCompatActivity {
         transaction.replace(R.id.fragment_container, detailFragment);
         transaction.addToBackStack(null);
         transaction.commit();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
 }

@@ -8,14 +8,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.estagiomobilefabiocavallari.R;
 import com.example.estagiomobilefabiocavallari.model.Offer;
+import com.squareup.picasso.Picasso;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class DetailFragment extends Fragment {
 
     private Offer offer;
@@ -37,7 +38,17 @@ public class DetailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         offer = (Offer) getArguments().getSerializable("offer");
-        Toast.makeText(getContext(),offer.getTitle(), Toast.LENGTH_SHORT).show();
 
+        ImageView foto = view.findViewById(R.id.foto);
+        TextView title = view.findViewById(R.id.title);
+        TextView description = view.findViewById(R.id.description);
+        TextView value = view.findViewById(R.id.value);
+        Button button = view.findViewById(R.id.button);
+
+        Picasso.get().load(offer.getImage()).into(foto);
+        title.setText(offer.getTitle());
+        description.setText(offer.getDescription());
+        value.setText("R$"+offer.getValue());
     }
+
 }

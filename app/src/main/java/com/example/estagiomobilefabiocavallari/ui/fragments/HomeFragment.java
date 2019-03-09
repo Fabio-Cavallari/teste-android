@@ -41,7 +41,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -65,7 +64,6 @@ public class HomeFragment extends Fragment {
         offersAdapter.setOnOfferClickListener(new OnOfferClickListener() {
             @Override
             public void onOfferClick(Offer offer) {
-                //Toast.makeText(getContext(),offer.getTitle(),Toast.LENGTH_LONG).show();
                 HomeActivity homeActivity = (HomeActivity) getActivity();
                 homeActivity.NavigateToDetail(offer);
             }
