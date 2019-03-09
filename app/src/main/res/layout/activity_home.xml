@@ -14,10 +14,9 @@
             android:fontFamily="sans-serif-light"
             android:textSize="25sp"/>
     </android.support.v7.widget.Toolbar>
-    <fragment
-        android:name="com.example.estagiomobilefabiocavallari.ui.Home.HomeFragment"
-        android:id="@+id/fooFragment"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

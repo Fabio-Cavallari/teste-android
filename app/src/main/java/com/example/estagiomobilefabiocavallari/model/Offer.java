@@ -1,15 +1,19 @@
 package com.example.estagiomobilefabiocavallari.model;
 
-public class Offer {
+import java.io.Serializable;
+
+public class Offer implements Serializable {
 
     private final String title;
     private final String image;
     private final String value;
+    private final String description;
 
-    public Offer(String title, String image, String value) {
+    public Offer(String title, String image, String value, String description) {
         this.title = title;
         this.image = image;
         this.value = value;
+        this.description = description;
     }
 
     public String getValue() {
@@ -22,5 +26,9 @@ public class Offer {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

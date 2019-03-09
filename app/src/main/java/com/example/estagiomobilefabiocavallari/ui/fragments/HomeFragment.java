@@ -1,4 +1,4 @@
-package com.example.estagiomobilefabiocavallari.ui.Home;
+package com.example.estagiomobilefabiocavallari.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,6 +14,9 @@ import android.widget.Toast;
 import com.example.estagiomobilefabiocavallari.R;
 import com.example.estagiomobilefabiocavallari.model.Offer;
 import com.example.estagiomobilefabiocavallari.service.OfferService;
+import com.example.estagiomobilefabiocavallari.ui.adapters.OffersAdapter;
+import com.example.estagiomobilefabiocavallari.ui.listeners.OnOfferClickListener;
+import com.example.estagiomobilefabiocavallari.ui.activities.HomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +62,14 @@ public class HomeFragment extends Fragment {
         offersRecyler.setAdapter(offersAdapter);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         offersRecyler.setLayoutManager(layoutManager);
+        offersAdapter.setOnOfferClickListener(new OnOfferClickListener() {
+            @Override
+            public void onOfferClick(Offer offer) {
+                //Toast.makeText(getContext(),offer.getTitle(),Toast.LENGTH_LONG).show();
+                HomeActivity homeActivity = (HomeActivity) getActivity();
+                homeActivity.NavigateToDetail(offer);
+            }
+        });
     }
 
     @Override
