@@ -71,11 +71,7 @@ public class HomeFragment extends Fragment implements HomePresenter.HomeView {
                 homeActivity.NavigateToDetail(offer);
             }
         });
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
         presenter.GetOffers();
     }
 
