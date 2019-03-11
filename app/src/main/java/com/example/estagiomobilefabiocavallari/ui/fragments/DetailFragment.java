@@ -15,21 +15,25 @@ import android.widget.Toast;
 
 import com.example.estagiomobilefabiocavallari.R;
 import com.example.estagiomobilefabiocavallari.model.Offer;
+import com.example.estagiomobilefabiocavallari.presenter.DetailPresenter;
 import com.squareup.picasso.Picasso;
 
-public class DetailFragment extends Fragment {
+public class DetailFragment extends Fragment implements DetailPresenter.DetailView {
 
-    private Offer offer;
+    private DetailPresenter presenter;
+
+    ImageView foto;
+    TextView title;
+    TextView description;
+    TextView value;
 
     public DetailFragment() {
-        // Required empty public constructor
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_detail, container, false);
     }
 
@@ -37,18 +41,27 @@ public class DetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        offer = (Offer) getArguments().getSerializable("offer");
+        presenter = new DetailPresenter(this);
 
-        ImageView foto = view.findViewById(R.id.foto);
-        TextView title = view.findViewById(R.id.title);
-        TextView description = view.findViewById(R.id.description);
-        TextView value = view.findViewById(R.id.value);
-        Button button = view.findViewById(R.id.button);
+        foto = view.findViewById(R.id.foto);
+        title = view.findViewById(R.id.title);
+        description = view.findViewById(R.id.description);
+        value = view.findViewById(R.id.value);
 
-        Picasso.get().load(offer.getImage()).into(foto);
-        title.setText(offer.getTitle());
-        description.setText(offer.getDescription());
-        value.setText("R$"+offer.getValue());
+        presenter.mountFragment();
+    }
+
+    public void setFoto(String url){
+        Picasso.get().load(url).into(this.foto);
+    }
+    public void setTitle(String title){
+        this.title.setText(title);
+    }
+    public void setDescription(String description){
+        this.description.setText(description);
+    }
+    public void setValue(String value){
+        this.value.setText("R$"+value);
     }
 
 }
