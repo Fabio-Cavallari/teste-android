@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.estagiomobilefabiocavallari.R;
 import com.example.estagiomobilefabiocavallari.model.Offer;
+import com.example.estagiomobilefabiocavallari.presenter.HomePresenter;
 import com.example.estagiomobilefabiocavallari.service.OfferService;
 import com.example.estagiomobilefabiocavallari.ui.adapters.OffersAdapter;
 import com.example.estagiomobilefabiocavallari.ui.listeners.OnOfferClickListener;
@@ -28,10 +29,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements HomePresenter.HomeView {
 
-    ArrayList<Offer> offersList;
-    OffersAdapter offersAdapter;
+    private HomePresenter presenter;
+    public OffersAdapter offersAdapter;
 
     public HomeFragment() {
 
@@ -46,7 +47,6 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
@@ -54,11 +54,11 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        offersList = new ArrayList<Offer>();
+        presenter = new HomePresenter(this);
 
         RecyclerView offersRecyler = view.findViewById(R.id.offers_list);
 
-        offersAdapter = new OffersAdapter(offersList, getContext());
+        offersAdapter = new OffersAdapter(presenter, getContext());
         offersRecyler.setAdapter(offersAdapter);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
@@ -76,32 +76,11 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        GetOffers();
+        presenter.GetOffers();
     }
 
-    private void GetOffers() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(OfferService.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        OfferService api = retrofit.create(OfferService.class);
-
-        Call<List<Offer>> call = api.getOffers();
-        call.enqueue(new Callback<List<Offer>>() {
-            @Override
-            public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response) {
-                List<Offer> offers = response.body();
-                for (Offer offer :
-                        offers) {
-                    offersList.add(offer);
-                }
-                offersAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(Call<List<Offer>> call, Throwable t) {
-                Toast.makeText(getContext(),"Erro durante a requisição", Toast.LENGTH_LONG).show();
-            }
-        });
+    @Override
+    public void notifyDataSetChanged() {
+        offersAdapter.notifyDataSetChanged();
     }
 }

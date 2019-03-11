@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.estagiomobilefabiocavallari.R;
 import com.example.estagiomobilefabiocavallari.model.Offer;
+import com.example.estagiomobilefabiocavallari.presenter.HomePresenter;
 import com.example.estagiomobilefabiocavallari.ui.listeners.OnOfferClickListener;
 import com.squareup.picasso.Picasso;
 
@@ -19,12 +20,12 @@ import java.util.ArrayList;
 
 public class OffersAdapter extends RecyclerView.Adapter {
 
-    private ArrayList<Offer> offers;
     private Context context;
     private OnOfferClickListener onOfferClickListener;
+    private HomePresenter presenter;
 
-    public OffersAdapter(ArrayList<Offer> offers, Context context){
-        this.offers = offers;
+    public OffersAdapter(HomePresenter presenter,  Context context){
+        this.presenter = presenter;
         this.context = context;
     }
 
@@ -43,29 +44,24 @@ public class OffersAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         OffersViewHolder holder =  (OffersViewHolder) viewHolder;
-        Offer offer = offers.get(i);
-
-        holder.offer = offer;
-        holder.title.setText(offer.getTitle());
-        holder.value.setText("R$" + offer.getValue());
-        Picasso.get()
-                .load(offer.getImage())
-                .into(holder.img);
+        presenter.BindOffer(holder, i);
     }
 
     @Override
     public int getItemCount() {
-        return offers.size();
+        return presenter.offersList.size();
     }
 
     @Override
     public int getItemViewType(int position) {
         return super.getItemViewType(position);
     }
-    class OffersViewHolder extends ViewHolder {
-        private final TextView title;
-        private final TextView value;
-        private final ImageView img;
+
+    public class OffersViewHolder extends ViewHolder {
+
+        private TextView title;
+        private TextView value;
+        private ImageView img;
         private Offer offer;
 
         public OffersViewHolder(@NonNull View itemView) {
@@ -81,6 +77,25 @@ public class OffersAdapter extends RecyclerView.Adapter {
                 }
             });
         }
-}
+
+        public void setOffer(Offer offer) {
+            this.offer = offer;
+        }
+
+        public void setTitle(String title) {
+            this.title.setText(title);
+        }
+
+        public void setValue(String value) {
+            this.value.setText("R$" + value);
+        }
+
+        public void setImg(String url) {
+            Picasso.get()
+                    .load(url)
+                    .into(img);
+        }
+
+    }
 
 }
