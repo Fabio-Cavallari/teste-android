@@ -28,7 +28,6 @@ public class DetailFragment extends Fragment implements DetailPresenter.DetailVi
     TextView value;
 
     public DetailFragment() {
-        // Required empty public constructor
     }
 
 
